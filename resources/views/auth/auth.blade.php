@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-This is the auth page powered by bootstrap5
+<div class="auth_container">
+    hello world
+    <img src="/public/assets/svg/switch-svgrepo-com.svg" alt="">
+</div>
 @endsection
