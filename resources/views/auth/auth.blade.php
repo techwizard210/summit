@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-This is the auth page powered by bootstrap5
+    <div>
+        {{--          importing image          --}}
+        <img src={{ asset('images/osaka.png') }} alt="osaka" />
+        {{--          importing card           --}}
+        <x-card />
+    </div>
 @endsection
