@@ -11,20 +11,24 @@
                 <img src="{{ asset('/assets/images/login-hero.png') }}" alt="a man with a laptop">
             </div>
           <div class="form_box">
-          <form action="">
-                <div class="title">
-                    <img src="{{ asset('/assets/svg/door.svg') }}" alt="">
-                    <div>
-                        <p>Sign in</p>
-                        <h1>Enter your credentials</h1>
-                    </div>
+            <form id="sign_in_form" >
+            <div class="title">
+                <img src="{{ asset('/assets/svg/door.svg') }}" alt="">
+                <div>
+                    <h1>Sign In</h1>
                 </div>
-                <div class="input_group">
-                    <x-input name="username" label="Username" placeholder="Username" />
-                    <x-input name="password" label="Password" placeholder="Password" type="password"/>
-                </div>
+            </div>
+            <div class="input_group">
+                <x-input name="company_name" placeholder="Company Name" />
+                <x-input name="team_number"  placeholder="Team Number" type="number"/>   
+                <x-select />
+                <x-input name="password" placeholder="Password" type="password"/>
+            </div>
+            <div class="action_wrap">      
                 <button>Sign in</button>
-            <form />
+                <p>Need an account? <span class="to_sign_in">Sign up</span></p>
+            </div>
+        <form />
           </div>
         </div>
         

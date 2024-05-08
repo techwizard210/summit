@@ -7,3 +7,16 @@ function togglePasswordVisibility(inputId) {
         x.type = "password";
     }
 }
+
+function toggleAuthFormComponents() {
+    const login = document.getElementById("sign_in_form");
+    const signin = document.getElementById("sign_in_form");
+
+    if (login.classList.contains("hidden")) {
+        login.classList.remove("hidden");
+        signin.classList.add("hidden");
+    } else {
+        login.classList.add("hidden");
+        signin.classList.remove("hidden");
+    }
+}

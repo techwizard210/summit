@@ -1,0 +1,45 @@
+.home {
+    background-color: #124a7d;
+}
+
+.home .home_wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    padding: 0 24px 80px;
+}
+
+.home .home_wrapper header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0 40px;
+}
+
+.home .home_wrapper header h1 {
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+}
+
+.home .home_wrapper header img {
+    width: 24px;
+    cursor: pointer;
+}
+
+.card_wrapper {
+    display: grid;
+    gap: 50px;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 372px));
+}
+
+@media screen and (min-width: 1024px) {
+    .home .home_wrapper {
+        padding: 0 80px 80px;
+    }
+    .home .home_wrapper header img {
+        width: 32px;
+    }
+}
