@@ -20,8 +20,4 @@ class AuthController extends Controller {
             return redirect()->intended('home');
         }
     }
-
-    public function test() {
-        return 'okay';
-    }
 }
