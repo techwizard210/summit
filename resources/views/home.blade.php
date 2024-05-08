@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <div>
-    ssss
+    <?php echo Auth::user() ?>
 </div>
 @section('content')
 @endsection
