@@ -1,17 +1,21 @@
+.hidden {
+    display: none !important;
+}
+
 /* input field */
 .input_field {
     width: 100%;
 }
 
 .input_field label {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     color: #1c1c1c;
     font-size: 16px;
     font-weight: 500;
 }
 
 .input_field .input {
-    height: 50px;
+    height: 48px;
     border: 1px solid #b5bbd1;
     background-color: #fff;
     padding: 0 12px;
@@ -28,6 +32,7 @@
     background-color: transparent;
     color: #000;
     width: 100%;
+    font-size: 16px;
 }
 .input_field .input img {
     cursor: pointer;
@@ -35,4 +40,97 @@
 
 .input_field .input input:placeholder {
     color: #757575;
+}
+
+/* select */
+.select_field {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #b5bbd1;
+    background-color: #fff;
+    padding: 0 12px;
+    outline: 0;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+}
+.select_field select {
+    width: 100%;
+    font-size: 16px;
+    height: 40px;
+    border: 0;
+    outline: 0;
+}
+
+/* card */
+.clue_card {
+    width: 100%;
+    max-width: 372px;
+    padding: 24px;
+    display: flex;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+        0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.clue_card .clue_card_wrapper {
+    max-width: 290px;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.clue_card .clue_card_wrapper .card_top .title,
+.clue_card .clue_card_wrapper .card_top .sub_title {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.clue_card .clue_card_wrapper .card_top .title {
+    color: #0b4c7a;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.clue_card .clue_card_wrapper .card_top .sub_title {
+    margin: 16px 0;
+    font-size: 16px;
+    color: #508dc5;
+}
+
+.clue_card .clue_card_wrapper .card_bottom {
+    height: fit-content;
+}
+
+.clue_card .clue_card_wrapper .card_bottom .img_box {
+    width: 100%;
+    height: 120px;
+    margin-top: 16px;
+}
+
+.clue_card .clue_card_wrapper .card_bottom .img_box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.clue_card .clue_card_wrapper .card_bottom button {
+    width: 100%;
+    background-color: #4ea191;
+    border: 0;
+    outline: 0;
+    border-radius: 80px;
+    height: 48px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 16px;
+    color: #fff;
 }

@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="{{ asset("/css/auth.css") }}">
         <link rel="stylesheet" href="{{ asset("/css/components.css") }}">
+        <link rel="stylesheet" href="{{ asset("/css/home.css") }}">
         <!-- Fonts -->
     
         <link rel="preconnect" href="https://fonts.bunny.net">

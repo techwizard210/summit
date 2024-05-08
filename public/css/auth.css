@@ -67,7 +67,7 @@
     gap: 16px;
 }
 
-.form_wrapper .form_content button {
+.form_wrapper .form_content .action_wrap button {
     text-transform: capitalize;
     height: 48px;
     background-color: #124a7d;
@@ -78,9 +78,21 @@
     color: #fff;
     font-weight: 500;
 }
-.form_wrapper .form_content button:hover {
+.form_wrapper .form_content .action_wrap button:hover {
     background-color: #203d69;
     transition: all 0.7s;
+}
+
+.form_wrapper .form_content .action_wrap p {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.form_wrapper .form_content .action_wrap p span {
+    font-weight: 600;
+    color: #124a7d;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .form_wrapper .form_content .title {
