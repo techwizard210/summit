@@ -14,14 +14,15 @@
 
             </div>
             <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post" enctype="multipart/form-data">
-                {{-- @csrf --}}
-                <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="camera"
+                @csrf
+                <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="environment"
                     style="display:none;">
                 <button type="button" id="cameraButton">Take picture</button>
             </form>
         </div>
     </div>
 </div>
+
 <script>
     // function download() {
     //     $.ajax({
@@ -33,6 +34,7 @@
     //     });
     // }
     document.getElementById('cameraButton').addEventListener('click', function() {
+        console.log('camera btn clicked');
         document.getElementById('cameraPhoto').click();
     });
 
