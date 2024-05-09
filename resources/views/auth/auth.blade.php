@@ -26,7 +26,7 @@
             </div>
             <div class="action_wrap">      
                 <button>Sign in</button>
-                <p>Need an account? <span class="to_sign_in">Sign up</span></p>
+                <p>Need an account? <span id="to_sign_in">Sign up</span></p>
             </div>
         <form />
           </div>
@@ -35,5 +35,3 @@
     </div>
 </main>
 @endsection
-
-

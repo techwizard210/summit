@@ -8,11 +8,11 @@
             <img src="{{ asset("/assets/svg/power-off-svgrepo-com.svg") }}" alt="">
        </header>
        <div class="card_wrapper">
-            <x-card />
-            <x-card />
-            <x-card />
-            <x-card />
-            <x-card />
+            <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!"/>
+            <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
+            <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
+            <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
+            <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
        </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 // For toggling password
+
 function togglePasswordVisibility(inputId) {
     const x = document.getElementById(inputId);
     if (x.type === "password") {
@@ -20,3 +21,9 @@ function toggleAuthFormComponents() {
         signin.classList.remove("hidden");
     }
 }
+
+$(document).ready(function () {
+    const login = document.getElementById("sign_in_form");
+    console.log(login);
+    console.log("sdfdfsd");
+});
