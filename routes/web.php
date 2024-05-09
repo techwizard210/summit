@@ -11,9 +11,9 @@ Route::post( '/register', [ AuthController::class, 'register' ] )->withoutMiddle
 
 Route::middleware(['auth'])->group( function() {
     Route::get( '/home', [ HomeController::class, 'show' ] )->name( 'home' );
+    Route::get('/downloadFolder', [HomeController::class, 'downloadFolder'])->name('downloadFolder');
+    Route::post('/uploadPhoto', [ HomeController::class, 'uploadPhoto' ])->name('uploadPhoto');
+
 });
 
-Route::post('/uploadPhoto', [ HomeController::class, 'uploadPhoto' ])->withoutMiddleware( [ VerifyCsrfToken::class ] )->name('uploadPhoto');
-Route::get( '/getPhotosByUser', [ HomeController::class, 'getPhotosByUser' ] )->name( 'getPhotosByUser' );
-Route::get('/downloadFolder', [HomeController::class, 'downloadFolder'])->name('downloadFolder');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');Route::get( '/getPhotosByUser', [ HomeController::class, 'getPhotosByUser' ] )->name( 'getPhotosByUser' );

@@ -11,13 +11,28 @@ use App\Models\Photo;
 
 class HomeController extends Controller {
     public function show() {
-        return view( 'home' );
+        $clues = array(
+            array(
+                'id' => '1',
+                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
+                'subTitle' => 'READY TO START',
+                'imgUrl' => '/assets/images/blue-mountain.jpeg'
+            ),
+            array(
+                'id' => '2',
+                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
+                'subTitle' => 'second start',
+                'imgUrl' => '/assets/images/blue-mountain.jpeg'
+            ),
+        );
+
+        return view( 'home', [ 'clues' => $clues ] );
     }
 
     public function uploadPhoto( Request $request ) {
-        $user_id = 1;
-        $clue_id = 2;
-        $group_id = 1;
+        $user_id = Auth::id();
+        $group_id = ( int )Auth::user()->toArray()[ 'group_id' ];
+        $clue_id = $request->input( 'clue_id' );
 
         $path = Storage::putFileAs(
             'public/images/'.$user_id.'/'.$group_id, $request->file( 'photo' ), $clue_id.'.jpg'
@@ -36,7 +51,7 @@ class HomeController extends Controller {
     }
 
     public function getPhotosByUser( Request $request ) {
-        $user_id = 1;
+        $user_id = Auth::id();
         $paths = Photo::where( 'user_id', $user_id )->pluck( 'path' );
         return $paths;
     }

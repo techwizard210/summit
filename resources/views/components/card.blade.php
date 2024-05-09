@@ -5,42 +5,27 @@
                 {{ $title }}
             </p>
             <p class="sub_title">
-                READY TO START
+                {{ $subTitle }}
             </p>
         </div>
         <div class="card_bottom">
             <div class="img_box">
-                <img src="{{ asset('/assets/images/blue-mountain.jpeg') }}" alt="">
-
+                <img src="{{ asset($imgUrl) }}" alt="">
             </div>
-            <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="environment"
-                    style="display:none;">
-                <button type="button" id="cameraButton">Take picture</button>
-            </form>
+            <button type="button" onclick="openCamera({{ $clueId }})">Take picture</button>
         </div>
     </div>
 </div>
 
 <script>
-    // function download() {
-    //     $.ajax({
-    //         method: "GET",
-    //         url: "{{ route('downloadFolder') }}",
-    //         success: function(result) {
-    //             alert('sfsdfsd');
-    //         }
-    //     });
-    // }
-    document.getElementById('cameraButton').addEventListener('click', function() {
-        console.log('camera btn clicked');
-        document.getElementById('cameraPhoto').click();
-    });
+    function openCamera(clue_id) {
+        $('#clue_id').val(clue_id);
+        $('#cameraPhoto').click();
+    }
 
-    document.getElementById('cameraPhoto').addEventListener('change', function() {
+    $('#cameraPhoto').on('change', function() {
         if (this.files.length > 0) {
-            document.getElementById('uploadForm').submit();
+            $('#uploadForm').submit();
         }
     });
 </script>

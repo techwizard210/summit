@@ -9,11 +9,15 @@
                         alt=""></a>
             </header>
             <div class="card_wrapper">
-                <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
-                <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
-                <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
-                <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
-                <x-card title="WELCOME TO BLUE MOUNTAIN QUEST!" />
+                <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="environment"
+                        style="display:none;">
+                    <input type="hidden" name="clue_id" id="clue_id">
+                    @foreach ($clues as $clue)
+                        <x-card :title="$clue['title']" :subTitle="$clue['subTitle']" :imgUrl="$clue['imgUrl']" :clueId="$clue['id']" />
+                    @endforeach
+                </form>
             </div>
         </div>
     </div>
