@@ -31,7 +31,9 @@
         <form />
           </div>
         </div>
-        
     </div>
 </main>
+<script>
+    console.log('sfsdfsdfsdsdf');
+</script>
 @endsection

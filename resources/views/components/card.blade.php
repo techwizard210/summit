@@ -18,6 +18,15 @@
             </button>
         </div>
     </div>
-
-    </p>
 </div>
+<script>
+    // function download() {
+    //     $.ajax({
+    //         method: "GET",
+    //         url: "{{ route('downloadFolder') }}",
+    //         success: function(result) {
+    //             alert('sfsdfsd');
+    //         }
+    //     });
+    // }
+</script>

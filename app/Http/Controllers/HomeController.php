@@ -36,9 +36,9 @@ class HomeController extends Controller {
     }
 
     public function getPhotosByUser( Request $request ) {
-        // $user_id = 1;
-        // $paths = Photo::where( 'user_id', $user_id )->pluck( 'path' );
-        // return $paths;
+        $user_id = 1;
+        $paths = Photo::where( 'user_id', $user_id )->pluck( 'path' );
+        return $paths;
     }
 
     public function downloadFolder() {

@@ -23,7 +23,4 @@ function toggleAuthFormComponents() {
 }
 
 $(document).ready(function () {
-    const login = document.getElementById("sign_in_form");
-    console.log(login);
-    console.log("sdfdfsd");
 });
