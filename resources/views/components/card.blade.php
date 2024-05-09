@@ -13,9 +13,12 @@
                 <img src="{{ asset('/assets/images/blue-mountain.jpeg') }}" alt="">
 
             </div>
-            <button>
-                Take picture
-            </button>
+            <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post" enctype="multipart/form-data">
+                {{-- @csrf --}}
+                <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="camera"
+                    style="display:none;">
+                <button type="button" id="cameraButton">Take picture</button>
+            </form>
         </div>
     </div>
 </div>
@@ -29,4 +32,13 @@
     //         }
     //     });
     // }
+    document.getElementById('cameraButton').addEventListener('click', function() {
+        document.getElementById('cameraPhoto').click();
+    });
+
+    document.getElementById('cameraPhoto').addEventListener('change', function() {
+        if (this.files.length > 0) {
+            document.getElementById('uploadForm').submit();
+        }
+    });
 </script>
