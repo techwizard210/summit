@@ -7,16 +7,9 @@
         </header>
         <div class="form_wrapper">
             <div class="form_content">
-                <div class="form_hero">
-                    <img src="{{ asset('/assets/images/login-hero.png') }}" alt="a man with a laptop">
-                </div>
                 <div class="form_box">
                     <form id="sign_in_form" action="{{ route('authenticate') }}" method="POST">
                         <div class="title">
-                            <img src="{{ asset('/assets/svg/door.svg') }}" alt="">
-                            <div>
-                                <h1>Sign In</h1>
-                            </div>
                         </div>
                         <div class="input_group">
                             <x-input name="company_name" placeholder="Company Name" />
