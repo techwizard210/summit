@@ -15,7 +15,7 @@
                         style="display:none;">
                     <input type="hidden" name="clue_id" id="clue_id">
                     @foreach ($clues as $clue)
-                        <x-card :title="$clue['title']" :subTitle="$clue['subTitle']" :imgUrl="$clue['imgUrl']" :clueId="$clue['id']" />
+                        <x-card :title="$clue['title']" :subTitle="$clue['subTitle']" :imgUrl="$clue['imgUrl']" :clueId="$clue['id']" :path="$clue['path']" />
                     @endforeach
                 </form>
             </div>

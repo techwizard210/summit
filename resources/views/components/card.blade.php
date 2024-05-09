@@ -12,7 +12,11 @@
             <div class="img_box">
                 <img src="{{ asset($imgUrl) }}" alt="">
             </div>
-            <button type="button" onclick="openCamera({{ $clueId }})">Take picture</button>
+            @if ($path === '')
+                <button type="button" onclick="openCamera({{ $clueId }})">Take Photo</button>
+            @else
+                <button type="button" onclick="">View Photo</button>
+            @endif
         </div>
     </div>
 </div>

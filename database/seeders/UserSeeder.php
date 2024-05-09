@@ -19,5 +19,12 @@ class UserSeeder extends Seeder {
             'group_id' => '1',
             'password' => Hash::make( '123' ),
         ] );
+
+        DB::table( 'users' )->insert( [
+            'company_name' => 'admin',
+            'team_number' => 1,
+            'group_id' => '1',
+            'password' => Hash::make( '123' ),
+        ] );
     }
 }

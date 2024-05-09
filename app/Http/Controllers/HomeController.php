@@ -13,20 +13,29 @@ class HomeController extends Controller {
     public function show() {
         $clues = array(
             array(
-                'id' => '1',
+                'id' => 1,
                 'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
                 'subTitle' => 'READY TO START',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
             array(
-                'id' => '2',
+                'id' => 2,
                 'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
                 'subTitle' => 'second start',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
         );
 
-        return view( 'home', [ 'clues' => $clues ] );
+        foreach ( $clues as $index => $clue ) {
+            if ( Photo::where( 'user_id', Auth::id() )->where( 'group_id', ( int )Auth::user()->toArray()[ 'group_id' ] )->where( 'clue_id', $clue[ 'id' ] )->count() > 0 ) {
+                $photoUrl = Photo::where( 'user_id', Auth::id() )->where( 'group_id', ( int )Auth::user()->toArray()[ 'group_id' ] )->where( 'clue_id', $clue[ 'id' ] )->pluck( 'path' )[ 0 ];
+            } else {
+                $photoUrl = '';
+            }
+            $clues[ $index ][ 'path' ] = $photoUrl;
+        }
+
+        return view( 'home', compact( 'clues' ) );
     }
 
     public function uploadPhoto( Request $request ) {
