@@ -21,6 +21,3 @@ function toggleAuthFormComponents() {
         signin.classList.remove("hidden");
     }
 }
-
-$(document).ready(function () {
-});

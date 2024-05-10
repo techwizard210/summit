@@ -6,7 +6,7 @@
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin5">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="#">
                         <b class="logo-icon ps-2">
                             BMQ2
                         </b>
@@ -188,17 +188,18 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-4">
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
-                                aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                                    class="hide-menu">Logout</span></a>
-                        </li>
-                        <li class="sidebar-item">
                             <form action="{{ route('downloadFolder') }}" id="downloadFolderForm" method="GET">
                                 @csrf
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    aria-expanded="false" href="#" onclick="document.getElementById('downloadFolderForm').submit()"><i class="mdi mdi-view-dashboard"></i><span
-                                        class="hide-menu">Download Photos</span></a>
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                    href="#" onclick="document.getElementById('downloadFolderForm').submit()"><i
+                                        class="mdi mdi-download"></i><span class="hide-menu">Download
+                                        Photos</span></a>
                             </form>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
+                                aria-expanded="false"><i class="mdi mdi-power"></i><span
+                                    class="hide-menu">Logout</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -207,24 +208,25 @@
         <div class="page-wrapper">
             <div class="home">
                 <div class="home_wrapper">
-                    <div class="card_wrapper">
-                        <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="file" name="photo" id="cameraPhoto" accept="image/*"
-                                capture="environment" style="display:none;">
-                            <input type="hidden" name="clue_id" id="clue_id">
-                            @foreach ($clues as $clue)
+                    <form id="uploadForm" action="{{ route('uploadPhoto') }}" method="post"
+                        enctype="multipart/form-data">
+                        <input type="file" name="photo" id="cameraPhoto" accept="image/*" capture="environment"
+                            style="display:none;">
+                        <input type="hidden" name="clue_id" id="clue_id">
+                        @csrf
+
+                        @foreach ($clues as $clue)
+                            <div class="card_wrapper">
                                 <x-card :title="$clue['title']" :subTitle="$clue['subTitle']" :imgUrl="$clue['imgUrl']" :clueId="$clue['id']"
                                     :path="$clue['path']" />
-                            @endforeach
-                        </form>
-                    </div>
+                            </div>
+                        @endforeach
+                    </form>
                 </div>
             </div>
             <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by
-                <a href="https://www.wrappixel.com">WrapPixel</a>.
+                All Rights Reserved by <a href="">Summit Team Building</a>. Designed and Developed by
+                <a href="">Wizard</a>.
             </footer>
         </div>
     </div>

@@ -24,6 +24,24 @@ class HomeController extends Controller {
                 'subTitle' => 'second start',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
+            array(
+                'id' => 3,
+                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
+                'subTitle' => 'second start',
+                'imgUrl' => '/assets/images/blue-mountain.jpeg'
+            ),
+            array(
+                'id' => 4,
+                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
+                'subTitle' => 'second start',
+                'imgUrl' => '/assets/images/blue-mountain.jpeg'
+            ),
+            array(
+                'id' => 5,
+                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
+                'subTitle' => 'second start',
+                'imgUrl' => '/assets/images/blue-mountain.jpeg'
+            )
         );
 
         foreach ( $clues as $index => $clue ) {

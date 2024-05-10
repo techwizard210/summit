@@ -4924,7 +4924,7 @@ fieldset:disabled .btn {
     align-items: center;
     min-height: calc(100% - 1rem);
 }
-.modal-content {
+/* .modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -4935,7 +4935,7 @@ fieldset:disabled .btn {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 2px;
     outline: 0;
-}
+} */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -9096,6 +9096,8 @@ html[dir="ltr"] body .p-l-0 {
 }
 .footer {
     padding: 15px 20px;
+    background-color: #1f262d;
+    color: white;
 }
 #main-wrapper {
 }
@@ -9174,6 +9176,7 @@ html[dir="ltr"] body .p-l-0 {
     }
     #main-wrapper[data-sidebartype="mini-sidebar"] .left-sidebar {
         left: -250px;
+        transition: left .3s;
     }
     #main-wrapper.show-sidebar .left-sidebar {
         left: 0;
