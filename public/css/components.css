@@ -1,73 +1,3 @@
-.hidden {
-    display: none !important;
-}
-
-/* input field */
-.input_field {
-    width: 100%;
-}
-
-.input_field label {
-    margin-bottom: 4px;
-    color: #1c1c1c;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.input_field .input {
-    border-radius: 10px;
-    height: 48px;
-    border: 1px solid #b5bbd1;
-    background-color: #fff;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.input_field .input input {
-    border: 0;
-    outline: 0;
-    background-color: transparent;
-    color: #000;
-    width: 100%;
-    font-size: 16px;
-}
-.input_field .input img {
-    cursor: pointer;
-}
-
-.input_field .input input:placeholder {
-    color: #757575;
-}
-
-/* select */
-.select_field {
-    width: 100%;
-    height: 48px;
-    border: 1px solid #b5bbd1;
-    background-color: #fff;
-    padding: 0 12px;
-    outline: 0;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-}
-.select_field_select {
-    width: 100%;
-    font-size: 16px;
-    height: 40px;
-    border: 0;
-    outline: 0;
-}
-
-.select_field_select > option {
-    padding: 0 12px;
-}
-
 /* card */
 .clue_card {
     width: 100%;
@@ -140,4 +70,21 @@
     font-weight: 700;
     margin-top: 16px;
     color: #fff;
+}
+
+.notification-msg {
+    width: fit-content;
+    background-color: rgb(54, 52, 52);
+    color: white;
+    border-radius: 7px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    backdrop-filter: blur(2px);
+}
+
+.notification-container {
+    display: none;
+    justify-content: center;
+    text-align: center;
 }
