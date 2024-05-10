@@ -107,7 +107,7 @@
 }
 
 /* Modal Content */
-.modal-content {
+.photo-modal-content {
     position: fixed;
     bottom: 0;
     background-color: #fefefe;
