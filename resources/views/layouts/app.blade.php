@@ -47,7 +47,7 @@
 </head>
 
 <body>
-    <div>
+    <div class="content">
         @yield('content')
     </div>
     <div class="notification-container">

@@ -20,26 +20,26 @@ class HomeController extends Controller {
             ),
             array(
                 'id' => 2,
-                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
-                'subTitle' => 'second start',
+                'title' => 'CLUE1',
+                'subTitle' => '10 POINTS',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
             array(
                 'id' => 3,
-                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
-                'subTitle' => 'second start',
+                'title' => 'CLUE2',
+                'subTitle' => '10 POINTS',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
             array(
                 'id' => 4,
-                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
-                'subTitle' => 'second start',
+                'title' => 'CLUE3',
+                'subTitle' => '10 POINTS',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             ),
             array(
                 'id' => 5,
-                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
-                'subTitle' => 'second start',
+                'title' => 'CLUE4',
+                'subTitle' => '10 POINTS',
                 'imgUrl' => '/assets/images/blue-mountain.jpeg'
             )
         );

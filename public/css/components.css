@@ -193,12 +193,9 @@
 }
 
 .auth-wrapper {
-    width: 350px;
+    width: 330px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.main-container {
 }

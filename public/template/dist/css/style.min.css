@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 @import "icons/font-awesome/css/fontawesome-all.css";
 @import "icons/themify-icons/themify-icons.css";
 @import "icons/material-design-iconic-font/css/materialdesignicons.min.css";
@@ -67,7 +68,7 @@
 }
 body {
     margin: 0;
-    font-family: var(--bs-font-sans-serif);
+    font-family: "kanit";
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
