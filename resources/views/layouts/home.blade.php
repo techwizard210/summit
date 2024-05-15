@@ -52,94 +52,93 @@
 </head>
 
 <body>
-    <div class="content">
-        <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-            data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-            <header class="topbar" data-navbarbg="skin5">
-                <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                    <div class="navbar-header" data-logobg="skin5">
-                        @if (Auth::user()->id == 1)
-                            <a class="navbar-brand" href="/admin/home">
-                                <b class="logo-icon ps-2">
-                                    Admin Home
-                                </b>
-                            </a>
-                        @else
-                            <a class="navbar-brand" href="#">
-                                <b class="logo-icon ps-2">
-                                    {{ Session::get('group_name') }}
-                                </b>
-                            </a>
-                        @endif
-                        <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                                class="ti-menu ti-close"></i></a>
-                    </div>
-                    <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                        <ul class="navbar-nav float-start me-auto">
-                            <li class="nav-item d-none d-lg-block">
-                                <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
-                                    data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
-                            </li>
-                            @if (Auth::user()->id == 1)
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="d-none d-md-block">Add New <i class="fa fa-angle-down"></i></span>
-                                        <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><span class="dropdown-item" id="addClueBtn">Add Clue</span></li>
-                                        <li><span class="dropdown-item" id="addGroupBtn">Add Group</span></li>
-                                    </ul>
-                                </li>
-                            @endif
-                            <li class="nav-item search-box">
-                                <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i
-                                        class="mdi mdi-magnify fs-4"></i></a>
-                                <form class="app-search position-absolute">
-                                    <input type="text" class="form-control" placeholder="Search &amp; enter" />
-                                    <a class="srh-btn"><i class="mdi mdi-window-close"></i></a>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-            <aside class="left-sidebar" data-sidebarbg="skin5">
-                <div class="scroll-sidebar">
-                    <nav class="sidebar-nav">
-                        <ul id="sidebarnav" class="pt-5">
-                            @if (Auth::user()->id == 1)
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
-                                        href="/admin/showClue"><i class="mdi mdi-buffer"></i><span
-                                            class="hide-menu">Clues</span></a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
-                                        href="/admin/showGroup"><i class="mdi mdi-terrain fs-4"></i><span
-                                            class="hide-menu">Groups</span></a>
-                                </li>
-                            @endif
-                            <li class="sidebar-item">
-                                <form action="{{ route('downloadFolder') }}" id="downloadFolderForm" method="GET">
-                                    @csrf
-                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
-                                        href="#"
-                                        onclick="document.getElementById('downloadFolderForm').submit()"><i
-                                            class="mdi mdi-download"></i><span class="hide-menu">Download
-                                            Photos</span></a>
-                                </form>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                    href="{{ route('logout') }}" aria-expanded="false"><i
-                                        class="mdi mdi-power"></i><span class="hide-menu">Logout</span></a>
-                            </li>
-                        </ul>
-                    </nav>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    @if (Auth::user()->id == 1)
+                        <a class="navbar-brand" href="/admin/home">
+                            <b class="logo-icon ps-2">
+                                Admin Home
+                            </b>
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="#">
+                            <b class="logo-icon ps-2">
+                                {{ Session::get('group_name') }}
+                            </b>
+                        </a>
+                    @endif
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
                 </div>
-            </aside>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)"
+                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a>
+                        </li>
+                        @if (Auth::user()->id == 1)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="d-none d-md-block">Add New <i class="fa fa-angle-down"></i></span>
+                                    <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><span class="dropdown-item" id="addClueBtn">Add Clue</span></li>
+                                    <li><span class="dropdown-item" id="addGroupBtn">Add Group</span></li>
+                                </ul>
+                            </li>
+                        @endif
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i
+                                    class="mdi mdi-magnify fs-4"></i></a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter" />
+                                <a class="srh-btn"><i class="mdi mdi-window-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="pt-5">
+                        @if (Auth::user()->id == 1)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                    href="/admin/showClue"><i class="mdi mdi-buffer"></i><span
+                                        class="hide-menu">Clues</span></a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                    href="/admin/showGroup"><i class="mdi mdi-terrain fs-4"></i><span
+                                        class="hide-menu">Groups</span></a>
+                            </li>
+                        @endif
+                        <li class="sidebar-item">
+                            <form action="{{ route('downloadFolder') }}" id="downloadFolderForm" method="GET">
+                                @csrf
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                    href="#" onclick="document.getElementById('downloadFolderForm').submit()"><i
+                                        class="mdi mdi-download"></i><span class="hide-menu">Download
+                                        Photos</span></a>
+                            </form>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
+                                aria-expanded="false"><i class="mdi mdi-power"></i><span
+                                    class="hide-menu">Logout</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <div class="page-wrapper">
             @yield('content')
             <footer class="footer text-center">
                 All Rights Reserved by <a href="">Summit Team Building</a>. Designed and Developed

@@ -1,7 +1,6 @@
 @extends('layouts.home')
 
 @section('content')
-    <div class="page-wrapper">
         <div class="container-fluid">
             <form action="{{ route('admin.browsePhoto') }}" method="POST">
                 @csrf
@@ -71,8 +70,6 @@
                 @endif
             </div>
         </div>
-    </div>
-    </div>
     <script>
         $(document).ready(function() {
             $('#groupName').val(<?php echo json_encode($group_id); ?>);
