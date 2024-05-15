@@ -32,7 +32,7 @@ class HomeController extends Controller {
 
     public function uploadPhoto( Request $request ) {
         $user_id = Auth::id();
-        $group_id = ( int )Auth::user()->toArray()[ 'group_id' ];
+        $group_id = Session::get( 'group_id' );
         $clue_id = $request->input( 'clue_id' );
 
         $photo = Photo::updateOrCreate(
@@ -63,8 +63,8 @@ class HomeController extends Controller {
         $user_id = Auth::id();
         $company_name = Auth::user()->toArray()[ 'company_name' ];
         $team_number = Auth::user()->toArray()[ 'team_number' ];
-        $group_id = ( int )Auth::user()->toArray()[ 'group_id' ];
-        $group_name = ( int )Auth::user()->toArray()[ 'group_id' ];
+        $group_id = Session::get( 'group_id' );
+        $group_name = Group::where('id', $group_id)->value('name');
 
         $zipFileName = $company_name.'_'.$team_number.'_'.$group_name . '.zip';
         $zipFilePath = storage_path( 'app/public/' . $zipFileName );

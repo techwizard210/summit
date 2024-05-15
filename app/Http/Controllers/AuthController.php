@@ -54,7 +54,6 @@ class AuthController extends Controller {
             $user->company_name = $company_name;
             $user->team_number = $team_number;
             $user->password = Hash::make( $password );
-            $user->group_id = '';
 
             $user->save();
 

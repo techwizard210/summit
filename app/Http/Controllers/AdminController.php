@@ -45,7 +45,7 @@ class AdminController extends Controller {
 
     public function addClue( Request $request ) {
         $title = $request->input( 'title' );
-        $point = (int) $request->input( 'point' );
+        $point = ( int ) $request->input( 'point' );
         $description = $request->input( 'description' );
         $group_id = $request->input( 'group_id' );
 
@@ -56,12 +56,14 @@ class AdminController extends Controller {
         $new_clue->group_id = $group_id;
         $new_clue->save();
 
-        $path = Storage::putFileAs(
-            'public/clues', $request->file( 'clue_photo' ), $new_clue->id.'.jpg'
-        );
+        if ( $request->file( 'clue_photo' ) != null ) {
+            $path = Storage::putFileAs(
+                'public/clues', $request->file( 'clue_photo' ), $new_clue->id.'.jpg'
+            );
 
-        $new_clue->image_path = str_replace( 'public', 'storage', $path );
-        $new_clue->save();
+            $new_clue->image_path = str_replace( 'public', 'storage', $path );
+            $new_clue->save();
+        }
 
         return back()->with( 'msg', 'successfully added' );
     }
