@@ -19,6 +19,10 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('/template/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/template/assets/libs/quill/dist/quill.snow.css') }}" />
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/template/assets/extra-libs/multicheck/multicheck.css') }}" />
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" />
     <link href="{{ asset('/template/dist/css/style.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('/template/assets/libs/magnific-popup/dist/magnific-popup.css') }}" rel="stylesheet" />
 
@@ -41,13 +45,17 @@
     <script src="{{ asset('/template/assets/libs/quill/dist/quill.min.js') }}"></script>
     <script src="{{ asset('/template/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('/template/assets/libs/magnific-popup/meg.init.js') }}"></script>
+    <script src="{{ asset('/template/assets/extra-libs/multicheck/datatable-checkbox-init.js') }}"></script>
+    <script src="{{ asset('/template/assets/extra-libs/multicheck/jquery.multicheck.js') }}"></script>
+    <script src="{{ asset('/template/assets/extra-libs/DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('/js/main.js') }}"></script>
-
 </head>
 
 <body>
     <div class="content">
         @yield('content')
+    </div>
+    </div>
     </div>
     <div class="notification-container noti-hide" id="notification-container">
         <div class="notification-msg">
@@ -63,7 +71,7 @@
         $('#notification-container').addClass("noti-show");
         setTimeout(() => {
             $('#notification-container').removeClass("noti-show");
-        $('#notification-container').addClass("noti-hide");
+            $('#notification-container').addClass("noti-hide");
         }, 3000);
     }
 </script>

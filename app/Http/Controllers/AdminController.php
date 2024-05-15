@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Group;
+use App\Models\Clue;
+
 class AdminController extends Controller {
     public function show() {
         return view( 'auth.admin' );
@@ -12,6 +15,16 @@ class AdminController extends Controller {
 
     public function home() {
         return view( 'admin' );
+    }
+
+    public function showClue() {
+        $clues = Clue::with( 'group' )->get()->toArray();
+        return view( 'clue', compact( 'clues' ) );
+    }
+
+    public function showGroup() {
+        $groups = Group::get()->toArray();
+        return view( 'group', compact( 'groups' ) );
     }
 
     public function authenticate( Request $request ) {

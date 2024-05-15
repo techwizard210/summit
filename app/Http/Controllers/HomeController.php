@@ -104,20 +104,16 @@ class HomeController extends Controller {
             array_push( $files, storage_path( 'app/public/' . $photo_id . '.jpg' ) );
         }
 
-        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE)
-        {
-            // Add files to the zip archive
-            foreach ($files as $file) {
-                if (File::exists($file)) {
-                    $zip->addFile($file, basename($file));
+        if ( $zip->open( $zipFilePath, ZipArchive::CREATE ) === TRUE ) {
+            foreach ( $files as $file ) {
+                if ( File::exists( $file ) ) {
+                    $zip->addFile( $file, basename( $file ) );
                 }
             }
 
-            // Close the zip archive
             $zip->close();
 
-            // Download the zip file
-            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+            return response()->download( $zipFilePath )->deleteFileAfterSend( true );
         }
     }
 }

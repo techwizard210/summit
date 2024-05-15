@@ -27,4 +27,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::middleware(['auth'])->group(function() {
         Route::get('/home', [AdminController::class, 'home'])->name('home');
     });
+    Route::get('/showClue', [AdminController::class, 'showClue'])->name('showClue');
+    Route::get('/showGroup', [AdminController::class, 'showGroup'])->name('showGroup');
 });
