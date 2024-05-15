@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use ZipArchive;
+use File;
 
 use App\Models\Photo;
 
@@ -61,18 +62,20 @@ class HomeController extends Controller {
         $group_id = ( int )Auth::user()->toArray()[ 'group_id' ];
         $clue_id = $request->input( 'clue_id' );
 
-        $path = Storage::putFileAs(
-            'public/images/'.$user_id.'/'.$group_id, $request->file( 'photo' ), $clue_id.'.jpg'
-        );
-
-        Photo::updateOrCreate(
-            [ 'clue_id' => $clue_id ],
+        $photo = Photo::updateOrCreate(
+            [ 'clue_id' => $clue_id, 'user_id' => $user_id ],
             [
-                'path' => str_replace( 'public', 'storage', $path ),
-                'user_id' => $user_id,
                 'group_id' => $group_id,
+                'path' => ''
             ]
         );
+
+        $path = Storage::putFileAs(
+            'public', $request->file( 'photo' ), $photo->id.'.jpg'
+        );
+
+        $photo->path = str_replace( 'public', 'storage', $path );
+        $photo->save();
 
         return redirect()->intended( 'home' );
     }
@@ -84,36 +87,37 @@ class HomeController extends Controller {
     }
 
     public function downloadFolder() {
-        $user_id = 1;
-        $folderName = $user_id;
-        $zipFileName = $user_id . '.zip';
+        $user_id = Auth::id();
+        $company_name = Auth::user()->toArray()[ 'company_name' ];
+        $team_number = Auth::user()->toArray()[ 'team_number' ];
+        $group_id = ( int )Auth::user()->toArray()[ 'group_id' ];
+        $group_name = ( int )Auth::user()->toArray()[ 'group_id' ];
+
+        $zipFileName = $company_name.'_'.$team_number.'_'.$group_name . '.zip';
         $zipFilePath = storage_path( 'app/public/' . $zipFileName );
-        $folderPath = storage_path( 'app/public/images/' . $folderName );
         $zip = new ZipArchive();
 
-        if ( $zip->open( $zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE ) === true ) {
-            // Get all files in the folder
-            $files = new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator( $folderPath ),
-                \RecursiveIteratorIterator::LEAVES_ONLY
-            );
+        $photo_ids = Photo::where( 'user_id', $user_id )->where( 'group_id', $group_id )->pluck( 'id' );
 
-            // Add files to the ZIP archive
-            foreach ( $files as $name => $file ) {
-                if ( !$file->isDir() ) {
-                    // Get real and relative paths for current file
-                    $filePath = $file->getRealPath();
-                    $relativePath = substr( $filePath, strlen( $folderPath ) + 1 );
+        $files = array();
+        foreach ( $photo_ids as $key => $photo_id ) {
+            array_push( $files, storage_path( 'app/public/' . $photo_id . '.jpg' ) );
+        }
 
-                    // Add file to the ZIP archive
-                    $zip->addFile( $filePath, $relativePath );
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE)
+        {
+            // Add files to the zip archive
+            foreach ($files as $file) {
+                if (File::exists($file)) {
+                    $zip->addFile($file, basename($file));
                 }
             }
 
-            // Close the ZIP archive
+            // Close the zip archive
             $zip->close();
-        }
 
-        return response()->download( $zipFilePath )->deleteFileAfterSend( true );
+            // Download the zip file
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        }
     }
 }
