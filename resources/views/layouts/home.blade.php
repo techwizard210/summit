@@ -166,7 +166,7 @@
                 <div class="add-modal-body">
                     <div class="input-group mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Group name"
-                            name="group_name" required="" />
+                            name="group_name" required />
                     </div>
                 </div>
                 <div class="add-modal-footer">
@@ -189,15 +189,14 @@
                 <div class="add-modal-body">
                     <div class="input-group mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Title"
-                            name="title" required="" />
+                            name="title" required />
                     </div>
                     <div class="input-group mt-3">
                         <input type="text" class="form-control form-control-lg" placeholder="Point"
-                            name="point" required="" />
+                            name="point" required />
                     </div>
                     <div class="input-group mt-3">
-                        <textarea type="text" class="form-control form-control-lg" placeholder="Description" name="description"
-                            required=""></textarea>
+                        <textarea type="text" class="form-control form-control-lg" placeholder="Description" name="description" required></textarea>
                     </div>
                     <div class="input-group mt-3">
                     </div>
@@ -229,7 +228,6 @@
     </div>
 </body>
 <script>
-    $(".select2").select2();
     let msg = <?php echo json_encode(session('msg')); ?>;
     if (msg !== null) {
         $('#notification-container').removeClass("noti-hide");

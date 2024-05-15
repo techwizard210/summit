@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Group;
 use App\Models\Clue;
+use App\Models\User;
+use App\Models\Photo;
 
 class AdminController extends Controller {
     public function show() {
@@ -15,8 +17,12 @@ class AdminController extends Controller {
     }
 
     public function home() {
+        $user_id = 2;
+        $group_id = 1;
         $groups = Group::get()->toArray();
-        return view( 'admin', compact( 'groups' ) );
+        $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
+        $photos = Photo::where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
+        return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
     }
 
     public function showClue() {
@@ -32,6 +38,9 @@ class AdminController extends Controller {
 
     public function addGroup( Request $request ) {
         $group_name = $request->input( 'group_name' );
+        if ( empty( $group_name ) ) {
+            return back()->with( 'msg', 'input group name' );
+        }
         $count = Group::where( 'name', $group_name )->count();
         if ( $count > 0 ) {
             return redirect()->route( 'admin.showGroup' )->with( 'msg', 'group name already exist' );
@@ -81,5 +90,14 @@ class AdminController extends Controller {
         } else {
             return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
         }
+    }
+
+    public function browsePhoto( Request $request ) {
+        $user_id = $request->input( 'user_id' );
+        $group_id = $request->input( 'group_id' );
+        $groups = Group::get()->toArray();
+        $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
+        $photos = Photo::where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
+        return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
     }
 }

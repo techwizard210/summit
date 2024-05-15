@@ -334,3 +334,14 @@
     background-color: #fff;
     color: #333;
 }
+
+.home-control-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px
+}
+
+.home-control-wrapper > span {
+    font-size: 16px;
+}

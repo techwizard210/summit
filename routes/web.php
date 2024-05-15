@@ -32,5 +32,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/showGroup', [AdminController::class, 'showGroup'])->name('showGroup');
         Route::post('/addClue', [AdminController::class, 'addClue'])->name('addClue');
         Route::post('/addGroup', [AdminController::class, 'addGroup'])->name('addGroup');
+        Route::post('/browsePhoto', [AdminController::class, 'browsePhoto'])->name('browsePhoto');
     });
 });
