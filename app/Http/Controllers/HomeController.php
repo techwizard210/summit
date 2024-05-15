@@ -5,55 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use ZipArchive;
 use File;
 
 use App\Models\Photo;
+use App\Models\Group;
+use App\Models\Clue;
 
 class HomeController extends Controller {
     public function show() {
-        $clues = array(
-            array(
-                'id' => 1,
-                'title' => 'WELCOME TO BLUE MOUNTAIN QUEST!',
-                'subTitle' => 'READY TO START',
-                'imgUrl' => '/assets/images/blue-mountain.jpeg'
-            ),
-            array(
-                'id' => 2,
-                'title' => 'CLUE1',
-                'subTitle' => '10 POINTS',
-                'imgUrl' => '/assets/images/blue-mountain.jpeg'
-            ),
-            array(
-                'id' => 3,
-                'title' => 'CLUE2',
-                'subTitle' => '10 POINTS',
-                'imgUrl' => '/assets/images/blue-mountain.jpeg'
-            ),
-            array(
-                'id' => 4,
-                'title' => 'CLUE3',
-                'subTitle' => '10 POINTS',
-                'imgUrl' => '/assets/images/blue-mountain.jpeg'
-            ),
-            array(
-                'id' => 5,
-                'title' => 'CLUE4',
-                'subTitle' => '10 POINTS',
-                'imgUrl' => '/assets/images/blue-mountain.jpeg'
-            )
-        );
+        $group_id = Session::get( 'group_id' );
+        $clues = Clue::with( 'group' )->where( 'group_id', $group_id )->get()->toArray();
 
         foreach ( $clues as $index => $clue ) {
-            if ( Photo::where( 'user_id', Auth::id() )->where( 'group_id', ( int )Auth::user()->toArray()[ 'group_id' ] )->where( 'clue_id', $clue[ 'id' ] )->count() > 0 ) {
-                $photoUrl = Photo::where( 'user_id', Auth::id() )->where( 'group_id', ( int )Auth::user()->toArray()[ 'group_id' ] )->where( 'clue_id', $clue[ 'id' ] )->pluck( 'path' )[ 0 ];
+            if ( Photo::where( 'user_id', Auth::id() )->where( 'clue_id', $clue[ 'id' ] )->count() > 0 ) {
+                $photoUrl = Photo::where( 'user_id', Auth::id() )->where( 'clue_id', $clue[ 'id' ] )->value( 'path' );
             } else {
                 $photoUrl = '';
             }
             $clues[ $index ][ 'path' ] = $photoUrl;
         }
-
         return view( 'home', compact( 'clues' ) );
     }
 
@@ -71,7 +43,7 @@ class HomeController extends Controller {
         );
 
         $path = Storage::putFileAs(
-            'public', $request->file( 'photo' ), $photo->id.'.jpg'
+            'public/photos', $request->file( 'photo' ), $photo->id.'.jpg'
         );
 
         $photo->path = str_replace( 'public', 'storage', $path );
@@ -101,10 +73,11 @@ class HomeController extends Controller {
 
         $files = array();
         foreach ( $photo_ids as $key => $photo_id ) {
-            array_push( $files, storage_path( 'app/public/' . $photo_id . '.jpg' ) );
+            array_push( $files, storage_path( 'app/public/photos/' . $photo_id . '.jpg' ) );
         }
 
         if ( $zip->open( $zipFilePath, ZipArchive::CREATE ) === TRUE ) {
+            // Add files to the zip archive
             foreach ( $files as $file ) {
                 if ( File::exists( $file ) ) {
                     $zip->addFile( $file, basename( $file ) );

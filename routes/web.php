@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
+use App\Http\Middleware\CheckIsAdmin;
+
 // user routes
 Route::get( '/', [ AuthController::class, 'show' ] )->name( 'login' );
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
@@ -24,9 +26,11 @@ Route::middleware(['auth'])->group( function() {
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/auth', [AdminController::class, 'show'])->name('auth');
     Route::post( '/authenticate', [ AdminController::class, 'authenticate' ] )->withoutMiddleware( [ VerifyCsrfToken::class ] )->name( 'authenticate' );
-    Route::middleware(['auth'])->group(function() {
+    Route::middleware(['auth', CheckIsAdmin::class])->group(function() {
         Route::get('/home', [AdminController::class, 'home'])->name('home');
+        Route::get('/showClue', [AdminController::class, 'showClue'])->name('showClue');
+        Route::get('/showGroup', [AdminController::class, 'showGroup'])->name('showGroup');
+        Route::post('/addClue', [AdminController::class, 'addClue'])->name('addClue');
+        Route::post('/addGroup', [AdminController::class, 'addGroup'])->name('addGroup');
     });
-    Route::get('/showClue', [AdminController::class, 'showClue'])->name('showClue');
-    Route::get('/showGroup', [AdminController::class, 'showGroup'])->name('showGroup');
 });

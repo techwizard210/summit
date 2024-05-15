@@ -19,7 +19,6 @@ class User extends Authenticatable
     protected $fillable = [
         'company_name',
         'team_number',
-        'group_id',
         'password'
     ];
 

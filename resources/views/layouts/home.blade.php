@@ -278,9 +278,10 @@
             {{ session('msg') }}
         </div>
     </div>
-    
+
     <div id="addGroupModal" class="add-modal">
-        <form action="{{}}" method="POST">
+        <form action="{{ route('admin.addGroup') }}" method="POST">
+            @csrf
             <div class="add-modal-content" style="width: 500px">
                 <div class="add-modal-header">
                     <span style="font-size: 25px">Fill the details of new group</span>
@@ -302,7 +303,8 @@
     </div>
 
     <div id="addClueModal" class="add-modal">
-        <form action="{{}}" method="POST">
+        <form action="{{ route('admin.addClue') }}" method="POST">
+            @csrf
             <div class="add-modal-content" style="width: 500px">
                 <div class="add-modal-header">
                     <span style="font-size: 25px">Fill the details of new clue</span>

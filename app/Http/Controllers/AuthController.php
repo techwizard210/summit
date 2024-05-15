@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 use App\Models\User;
+use App\Models\Group;
 
 class AuthController extends Controller {
     public function show() {
-        return view( 'auth.auth' );
+        $groups = Group::get()->toArray();
+        return view( 'auth.auth', compact( 'groups' ) );
     }
 
     public function showSignup() {
@@ -21,10 +24,20 @@ class AuthController extends Controller {
     public function authenticate( Request $request ) {
         $company_name = $request->input( 'company_name' );
         $team_number = $request->input( 'team_number' );
+        $group_name = $request->input( 'group_name' );
         $password = $request->input( 'password' );
 
+        $count = Group::where( 'name', $group_name )->count();
+
+        if ( $count === 0 ) {
+            return redirect()->route( 'login' )->with( 'msg', 'Input valid group name' );
+        }
+
+        $group_id = Group::where( 'name', $group_name )->value( 'id' );
+
         if ( Auth::attempt( [ 'company_name' => $company_name, 'team_number' => $team_number, 'password' => $password ] ) ) {
-            return redirect()->intended( 'home' )->with('msg', 'welcome');
+            Session::put( 'group_id', $group_id );
+            return redirect()->intended( 'home' )->with( 'msg', 'welcome' );
         } else {
             return redirect()->route( 'login' )->with( 'msg', 'wrong credentials' );
         }

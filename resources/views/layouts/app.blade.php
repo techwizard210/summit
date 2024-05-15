@@ -64,7 +64,9 @@
     </div>
 </body>
 <script>
-    $(".select2").select2();
+    $(document).ready(function() {
+        $(".select2").select2();
+    });
     let msg = <?php echo json_encode(session('msg')); ?>;
     if (msg !== null) {
         $('#notification-container').removeClass("noti-hide");

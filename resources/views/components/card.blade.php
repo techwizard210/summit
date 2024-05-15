@@ -9,9 +9,12 @@
             </p>
         </div>
         <div class="card_bottom">
-            <div class="img_box">
-                <img src="{{ asset($imgUrl) }}" alt="">
-            </div>
+            @if (strlen($imgUrl) > 2)
+                <div class="img_box">
+                    <img src="{{ asset($imgUrl) }}" alt="">
+                </div>
+            @else
+            @endif
             @if ($path === '')
                 <button type="button" onclick="openCamera({{ $clueId }})">Take Photo</button>
             @else

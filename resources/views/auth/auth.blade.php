@@ -34,15 +34,8 @@
                                     <span class="input-group-text bg-info text-white h-100" id="basic-addon2"><i
                                             class="mdi mdi-terrain fs-4"></i></span>
                                 </div>
-                                <select class="select2 form-select shadow-none select2-hidden-accessible"
-                                    style="width: 100%; height: 36px" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                    <option value="AK" data-select2-id="20">Alaska</option>
-                                    <option value="HI" data-select2-id="21">Hawaii</option>
-                                    <option value="CA" data-select2-id="23">California</option>
-                                    <option value="NV" data-select2-id="24">Nevada</option>
-                                    <option value="OR" data-select2-id="25">Oregon</option>
-                                    <option value="WA" data-select2-id="26">Washington</option>
-                                </select>
+                                <input type="text" class="form-control form-control-lg" placeholder="Group Name"
+                                    name="group_name" required="" />
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -63,7 +56,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <a href="/signup" style="border-bottom: 1px dashed black; float: right; text-decoration:none;color:black">
+                            <a href="/signup"
+                                style="border-bottom: 1px dashed black; float: right; text-decoration:none;color:black">
                                 To register
                             </a>
                         </div>
@@ -72,4 +66,12 @@
             </div>
         </div>
     </div>
+    <script>
+        // let groups = <?php echo json_encode($groups); ?>;
+        // groups.forEach(element => {
+        //     let elem = "<option value=" + element.id + " data-select2-id=" + element.id + ">" + element.name +
+        //         "</option>";
+        //     $('#group-select').append(elem);
+        // });
+    </script>
 @endsection
