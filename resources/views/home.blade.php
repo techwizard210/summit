@@ -12,7 +12,7 @@
 
                     @foreach ($clues as $clue)
                         <div class="card_wrapper">
-                            <x-card :title="$clue['title']" :subTitle="$clue['description']" :imgUrl="$clue['image_path']" :clueId="$clue['id']"
+                            <x-card :title="$clue['title']" :point="$clue['point']" :description="$clue['description']" :imgUrl="$clue['image_path']" :clueId="$clue['id']"
                                 :path="$clue['path']" />
                         </div>
                     @endforeach

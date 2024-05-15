@@ -1,12 +1,15 @@
 <div class="clue_card">
     <div class="clue_card_wrapper">
         <div class="card_top">
-            <p class="title">
+            <span class="title">
                 {{ $title }}
-            </p>
+            </span>
             <p class="sub_title">
-                {{ $subTitle }}
+                {{ $point }} POINTS
             </p>
+            <span class="description">
+                {{ $description }}
+            </span>
         </div>
         <div class="card_bottom">
             @if (strlen($imgUrl) > 2)

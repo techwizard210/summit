@@ -54,8 +54,11 @@
                                         </div>
                                     </div>
                                     <div class="el-card-content">
-                                        <h4 class="mb-0">Project title</h4>
-                                        <span class="text-muted">subtitle of project</span>
+                                        <h4 class="mb-0">{{ $photo['clue']['title'] }}</h4>
+                                        <span class="text-muted">{{ $photo['clue']['point'] }}</span>
+                                        <span class="text-muted">
+                                            {{ $photo['clue']['description'] }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

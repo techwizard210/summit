@@ -12112,6 +12112,8 @@ label {
     margin-bottom: 20px;
 }
 .el-element-overlay .el-card-item .el-card-content {
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
 .el-element-overlay .el-card-item .el-overlay-1 {

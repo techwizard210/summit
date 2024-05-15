@@ -21,7 +21,7 @@ class AdminController extends Controller {
         $group_id = 1;
         $groups = Group::get()->toArray();
         $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
-        $photos = Photo::where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
+        $photos = Photo::with( 'clue' )->where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
         return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
     }
 
@@ -97,7 +97,7 @@ class AdminController extends Controller {
         $group_id = $request->input( 'group_id' );
         $groups = Group::get()->toArray();
         $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
-        $photos = Photo::where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
+        $photos = Photo::with( 'clue' )->where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
         return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
     }
 }
