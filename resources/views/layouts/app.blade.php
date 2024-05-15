@@ -10,7 +10,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/svg/logo.svg') }}" />
 
-    
     <link rel="stylesheet" href="{{ asset('/css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/home.css') }}">
     <link rel="stylesheet" type="text/css"
