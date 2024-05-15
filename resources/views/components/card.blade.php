@@ -33,14 +33,6 @@
                 $('#uploadForm').submit();
             }
         });
-
-        // When the user clicks anywhere outside of the modal, close it
-        // window.onclick = function(event) {
-        //     if (event.target != document.getElementById("content-" + <?php echo $clueId; ?>)) {
-        //         console.log('yes');
-        //         modal.style.display = "none";
-        //     }
-        // }
     });
 
     function openCamera(clue_id) {

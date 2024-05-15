@@ -78,7 +78,6 @@ class HomeController extends Controller {
         }
 
         if ( $zip->open( $zipFilePath, ZipArchive::CREATE ) === TRUE ) {
-            // Add files to the zip archive
             foreach ( $files as $file ) {
                 if ( File::exists( $file ) ) {
                     $zip->addFile( $file, basename( $file ) );

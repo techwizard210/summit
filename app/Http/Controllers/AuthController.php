@@ -26,9 +26,11 @@ class AuthController extends Controller {
         $team_number = $request->input( 'team_number' );
         $group_id = $request->input( 'group_id' );
         $password = $request->input( 'password' );
+        $group_name = Group::where('id', $group_id)->value('name');
 
         if ( Auth::attempt( [ 'company_name' => $company_name, 'team_number' => $team_number, 'password' => $password ] ) ) {
             Session::put( 'group_id', $group_id );
+            Session::put( 'group_name', $group_name );
             return redirect()->intended( 'home' )->with( 'msg', 'welcome' );
         } else {
             return redirect()->route( 'login' )->with( 'msg', 'wrong credentials' );
