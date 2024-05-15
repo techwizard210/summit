@@ -49,14 +49,23 @@
     <div class="content">
         @yield('content')
     </div>
-    <div class="notification-container">
+    <div class="notification-container noti-hide" id="notification-container">
         <div class="notification-msg">
-            Incorrect credentials
+            {{ session('msg') }}
         </div>
     </div>
 </body>
 <script>
     $(".select2").select2();
+    let msg = <?php echo json_encode(session('msg')); ?>;
+    if (msg !== null) {
+        $('#notification-container').removeClass("noti-hide");
+        $('#notification-container').addClass("noti-show");
+        setTimeout(() => {
+            $('#notification-container').removeClass("noti-show");
+        $('#notification-container').addClass("noti-hide");
+        }, 3000);
+    }
 </script>
 
 </html>

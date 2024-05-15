@@ -19,13 +19,13 @@ class AdminController extends Controller {
         $password = $request->input( 'password' );
 
         if ( $name !== 'admin' ) {
-            return redirect()->route( 'admin.auth' );
+            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
         }
 
         if ( Auth::attempt( [ 'company_name' => $name, 'password' => $password ] ) ) {
-            return redirect()->route( 'admin.home' );
+            return redirect()->route( 'admin.home' )->with( 'msg', 'welcome admin' );
         } else {
-            return redirect()->route( 'admin.auth' );
+            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
         }
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 // user routes
 Route::get( '/', [ AuthController::class, 'show' ] )->name( 'login' );
+Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
 Route::post( '/authenticate', [ AuthController::class, 'authenticate' ] )->withoutMiddleware( [ VerifyCsrfToken::class ] )->name( 'authenticate' );
 Route::post( '/register', [ AuthController::class, 'register' ] )->withoutMiddleware( [ VerifyCsrfToken::class ] )->name( 'register' );
 
