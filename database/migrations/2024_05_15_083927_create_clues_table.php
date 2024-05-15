@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('point');
             $table->string('description')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('image_path')->default("");
             $table->bigInteger('group_id');
             $table->timestamps();
         });

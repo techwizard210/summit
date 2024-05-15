@@ -303,7 +303,7 @@
     </div>
 
     <div id="addClueModal" class="add-modal">
-        <form action="{{ route('admin.addClue') }}" method="POST">
+        <form action="{{ route('admin.addClue') }}" method="POST"  enctype="multipart/form-data">
             @csrf
             <div class="add-modal-content" style="width: 500px">
                 <div class="add-modal-header">
@@ -327,21 +327,17 @@
                     </div>
                     <span style="font-size:17px">select group name</span>
                     <div class="input-group mt-1" style="flex-wrap: nowrap">
-                        <select class="select2 form-select shadow-none select2-hidden-accessible"
-                            style="width: 100%; height: 36px" data-select2-id="1" tabindex="-1" name="group_id"
-                            aria-hidden="true">
-                            <option value="AK" data-select2-id="20">Alaska</option>
-                            <option value="HI" data-select2-id="21">Hawaii</option>
-                            <option value="CA" data-select2-id="23">California</option>
-                            <option value="NV" data-select2-id="24">Nevada</option>
-                            <option value="OR" data-select2-id="25">Oregon</option>
-                            <option value="WA" data-select2-id="26">Washington</option>
+                        <select class="custom-select" name="group_id">
+                            @foreach ($groups as $index => $group)
+                                <option value={{ $group['id'] }}>
+                                    {{ $group['name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="input-group mt-3">
-                        <input type="file" name="clue_photo" id="cluePhoto" style="display: none" />
-                        <button class="btn btn-outline-primary btn-lg" style="width: 100%"
-                            onclick="clickCluePhoto()">
+                        <input type="file" name="clue_photo" id="cluePhoto" accept="image/*" style="display: none" />
+                        <button type="button" class="btn btn-outline-primary btn-lg" style="width: 100%"
+                            onclick="clickCluePhoto(event)">
                             Upload Clue Photo
                         </button>
                     </div>
@@ -367,7 +363,8 @@
         }, 3000);
     }
 
-    function clickCluePhoto() {
+    function clickCluePhoto(event) {
+        event.preventDefault();
         $('#cluePhoto').click();
     }
 

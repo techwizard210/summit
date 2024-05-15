@@ -34,8 +34,12 @@
                                     <span class="input-group-text bg-info text-white h-100" id="basic-addon2"><i
                                             class="mdi mdi-terrain fs-4"></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="Group Name"
-                                    name="group_name" required="" />
+                                <select class="custom-select" name="group_id">
+                                    @foreach ($groups as $index => $group)
+                                        <option value={{ $group['id'] }}>
+                                            {{ $group['name'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

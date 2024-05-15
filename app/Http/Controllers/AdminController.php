@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Group;
@@ -14,12 +15,14 @@ class AdminController extends Controller {
     }
 
     public function home() {
-        return view( 'admin' );
+        $groups = Group::get()->toArray();
+        return view( 'admin', compact( 'groups' ) );
     }
 
     public function showClue() {
         $clues = Clue::with( 'group' )->get()->toArray();
-        return view( 'clue', compact( 'clues' ) );
+        $groups = Group::get()->toArray();
+        return view( 'clue', compact( 'clues', 'groups' ) );
     }
 
     public function showGroup() {
@@ -36,11 +39,31 @@ class AdminController extends Controller {
         $group = new Group();
         $group->name = $group_name;
         $group->save();
-        return redirect()->route( 'admin.showGroup' )->with( 'msg', 'successfully added' );
+
+        return back()->with( 'msg', 'successfully added' );
     }
 
     public function addClue( Request $request ) {
+        $title = $request->input( 'title' );
+        $point = (int) $request->input( 'point' );
+        $description = $request->input( 'description' );
+        $group_id = $request->input( 'group_id' );
 
+        $new_clue = new Clue();
+        $new_clue->title = $title;
+        $new_clue->point = $point;
+        $new_clue->description = $description;
+        $new_clue->group_id = $group_id;
+        $new_clue->save();
+
+        $path = Storage::putFileAs(
+            'public/clues', $request->file( 'clue_photo' ), $new_clue->id.'.jpg'
+        );
+
+        $new_clue->image_path = str_replace( 'public', 'storage', $path );
+        $new_clue->save();
+
+        return back()->with( 'msg', 'successfully added' );
     }
 
     public function authenticate( Request $request ) {

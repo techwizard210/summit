@@ -28,7 +28,12 @@
                                             <td>{{ $clue['title'] }}</td>
                                             <td>{{ $clue['point'] }}</td>
                                             <td>{{ $clue['description'] }}</td>
-                                            <td></td>
+                                            <td style="text-align: center">
+                                                @if (strlen($clue['image_path']) > 2)
+                                                    <img src={{ asset($clue['image_path']) }} style="width: 100px"
+                                                        alt="image_path" />
+                                                @endif
+                                            </td>
                                             <td style="text-align: center"><button class="btn btn-info"
                                                     style="margin-right:5px" id="to-recover" type="">
                                                     Edit

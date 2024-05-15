@@ -24,16 +24,8 @@ class AuthController extends Controller {
     public function authenticate( Request $request ) {
         $company_name = $request->input( 'company_name' );
         $team_number = $request->input( 'team_number' );
-        $group_name = $request->input( 'group_name' );
+        $group_id = $request->input( 'group_id' );
         $password = $request->input( 'password' );
-
-        $count = Group::where( 'name', $group_name )->count();
-
-        if ( $count === 0 ) {
-            return redirect()->route( 'login' )->with( 'msg', 'Input valid group name' );
-        }
-
-        $group_id = Group::where( 'name', $group_name )->value( 'id' );
 
         if ( Auth::attempt( [ 'company_name' => $company_name, 'team_number' => $team_number, 'password' => $password ] ) ) {
             Session::put( 'group_id', $group_id );

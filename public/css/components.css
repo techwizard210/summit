@@ -298,3 +298,39 @@
 #addClueBtn, #addGroupBtn {
     cursor: default;
 }
+
+.custom-select {
+    -webkit-appearance: none;
+    width: 100%;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Style the dropdown arrow */
+.custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+/* Style the dropdown list */
+.custom-select select {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+/* Style the options */
+.custom-select option {
+    background-color: #fff;
+    color: #333;
+}

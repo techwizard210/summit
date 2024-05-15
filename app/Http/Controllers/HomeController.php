@@ -16,6 +16,7 @@ use App\Models\Clue;
 class HomeController extends Controller {
     public function show() {
         $group_id = Session::get( 'group_id' );
+        $groups = Group::get()->toArray();
         $clues = Clue::with( 'group' )->where( 'group_id', $group_id )->get()->toArray();
 
         foreach ( $clues as $index => $clue ) {
@@ -26,7 +27,7 @@ class HomeController extends Controller {
             }
             $clues[ $index ][ 'path' ] = $photoUrl;
         }
-        return view( 'home', compact( 'clues' ) );
+        return view( 'home', compact( 'clues', 'groups' ) );
     }
 
     public function uploadPhoto( Request $request ) {
