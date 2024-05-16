@@ -1,7 +1,7 @@
 <div id="modal-{{ $id }}" class="photo-modal">
     <div class="photo-modal-content" id="content-{{ $id }}">
         <div class="modal-header">
-            <span class="header-span">Modal Header</span>
+            <span class="header-span"></span>
             <span id="close-{{ $id }}" class="close">&times;</span>
         </div>
         <div class="modal-body">

@@ -31,7 +31,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/showClue', [AdminController::class, 'showClue'])->name('showClue');
         Route::get('/showGroup', [AdminController::class, 'showGroup'])->name('showGroup');
         Route::post('/addClue', [AdminController::class, 'addClue'])->name('addClue');
+        Route::post('/editClue', [AdminController::class, 'editClue'])->name('editClue');
+        Route::post('/deleteClue', [AdminController::class, 'deleteClue'])->name('deleteClue');
         Route::post('/addGroup', [AdminController::class, 'addGroup'])->name('addGroup');
+        Route::post('/editGroup', [AdminController::class, 'editGroup'])->name('editGroup');
+        Route::post('/deleteGroup', [AdminController::class, 'deleteGroup'])->name('deleteGroup');
         Route::post('/browsePhoto', [AdminController::class, 'browsePhoto'])->name('browsePhoto');
     });
 });

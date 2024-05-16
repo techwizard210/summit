@@ -22,10 +22,11 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $group['name'] }}</td>
                                         <td style="text-align: center"><button class="btn btn-info" style="margin-right:5px"
-                                                id="to-recover" type="">
+                                                id="to-recover"
+                                                onclick="editGroup({{ $group['id'] }}, {{ json_encode($group['name']) }})">
                                                 Edit
                                             </button><button class="btn btn-danger" style="" id="to-recover"
-                                                type="">
+                                                onclick="deleteGroup({{ $group['id'] }}, {{ json_encode($group['name']) }})">
                                                 Delete
                                             </button></td>
                                     </tr>

@@ -279,6 +279,15 @@
     cursor: pointer;
 }
 
+.delete-modal-header {
+    padding: 10px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #da542e;
+    color: white;
+}
+
 .add-modal-header {
     padding: 10px 16px;
     display: flex;
@@ -286,6 +295,14 @@
     align-items: center;
     background-color: #1d488b;
     color: white;
+}
+
+.add-modal-header > span {
+    font-size: 25px;
+}
+
+.delete-modal-header > span {
+    font-size: 25px;
 }
 
 .add-modal-body {
@@ -299,7 +316,14 @@
     align-items: center;
 }
 
-#addClueBtn, #addGroupBtn {
+.delete-modal-footer {
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#addClueBtn,
+#addGroupBtn {
     cursor: default;
 }
 
@@ -318,7 +342,7 @@
 
 /* Style the dropdown arrow */
 .custom-select::after {
-    content: '\25BC';
+    content: "\25BC";
     position: absolute;
     top: 50%;
     right: 10px;
@@ -343,7 +367,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    gap: 10px
+    gap: 10px;
 }
 
 .home-control-wrapper > span {

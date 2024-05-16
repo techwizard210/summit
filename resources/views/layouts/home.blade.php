@@ -141,9 +141,7 @@
         <div class="page-wrapper">
             @yield('content')
             <footer class="footer text-center">
-                All Rights Reserved by <a href="">Summit Team Building</a>. Designed and Developed
-                by
-                <a href="">Wizard</a>.
+                All Rights Reserved by <a href="">Summit Team Building</a>
             </footer>
         </div>
     </div>
@@ -171,6 +169,30 @@
                 <div class="add-modal-footer">
                     <button class="btn btn-info" type="submit">
                         Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="editGroupModal" class="add-modal">
+        <form action="{{ route('admin.editGroup') }}" method="POST">
+            @csrf
+            <input name="edit_group_id" type="hidden" />
+            <div class="add-modal-content" style="width: 500px">
+                <div class="add-modal-header">
+                    <span style="font-size: 25px">Edit the details of group</span>
+                    <span class="add-close" onclick="editGroupModalClose()">&times;</span>
+                </div>
+                <div class="add-modal-body">
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Group name"
+                            name="edit_group_name" required />
+                    </div>
+                </div>
+                <div class="add-modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        Edit
                     </button>
                 </div>
             </div>
@@ -225,6 +247,100 @@
             </div>
         </form>
     </div>
+
+    <div id="editClueModal" class="add-modal">
+        <form action="{{ route('admin.editClue') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="edit_clue_id" />
+            <div class="add-modal-content" style="width: 500px">
+                <div class="add-modal-header">
+                    <span style="font-size: 25px">Edit the details of the clue</span>
+                    <span class="add-close" onclick="editClueModalClose()">&times;</span>
+                </div>
+                <div class="add-modal-body">
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Title"
+                            name="edit_title" required />
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Point"
+                            name="edit_point" required />
+                    </div>
+                    <div class="input-group mt-3">
+                        <textarea type="text" class="form-control form-control-lg" placeholder="Description" name="edit_description"
+                            required></textarea>
+                    </div>
+                    <div class="input-group mt-3">
+                    </div>
+                    <span style="font-size:17px">select group name</span>
+                    <div class="input-group mt-1" style="flex-wrap: nowrap">
+                        <select class="custom-select" name="edit_group_id">
+                            @foreach ($groups as $index => $group)
+                                <option value={{ $group['id'] }}>
+                                    {{ $group['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="input-group mt-3">
+                    </div>
+                    <span style="font-size:17px">click the image to change</span>
+                    <div class="input-group mt-3"
+                        style="justify-content: center;border: 1px solid #cdc9c9;padding: 5px;border-radius: 3px;">
+                        <input type="file" name="edit_clue_photo" style="display: none" />
+                        <img src="" id="edit_img" style="width: 200px;cursor: pointer;"
+                            onclick="editClueImg(event)" />
+                    </div>
+                </div>
+                <div class="add-modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="deleteClueModal" class="add-modal">
+        <form action="{{ route('admin.deleteClue') }}" method="POST">
+            @csrf
+            <input name="delete_clue_id" type="hidden" />
+            <div class="add-modal-content" style="width: 500px">
+                <div class="delete-modal-header">
+                    <span>Are you sure want to delete " </span> <span id="delete_clue_title"><b></b></span><span> "
+                        ?</span>
+                </div>
+                <div class="delete-modal-footer">
+                    <button class="btn btn-light" onclick="closeDeleteClue(event)">
+                        Cancel
+                    </button>
+                    <button class="btn btn-danger" type="submit">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="deleteGroupModal" class="add-modal">
+        <form action="{{ route('admin.deleteGroup') }}" method="POST">
+            @csrf
+            <input type="hidden" name="delete_group_id">
+            <div class="add-modal-content" style="width: 500px">
+                <div class="delete-modal-header">
+                    <span>Are you sure want to delete " </span> <span id="delete_group_title"><b></b></span><span> "
+                        ?</span>
+                </div>
+                <div class="delete-modal-footer">
+                    <button class="btn btn-light" onclick="closeDeleteGroup(event)">
+                        Cancel
+                    </button>
+                    <button class="btn btn-danger" type="submit">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 <script>
     let msg = <?php echo json_encode(session('msg')); ?>;
@@ -242,11 +358,89 @@
         $('#cluePhoto').click();
     }
 
+    function editGroup(group_id, group_name) {
+        $('input[name=edit_group_id]').val(group_id);
+        $('input[name=edit_group_name]').val(group_name);
+        editGroupModal.style.display = "block";
+    }
+
+    function editClue(clue_id, group_id, title, point, description, image_path) {
+        $('input[name=edit_clue_id]').val(clue_id);
+        $('select[name=edit_group_id]').val(group_id);
+        $('input[name=edit_title]').val(title);
+        $('input[name=edit_point]').val(point);
+        $('textarea[name=edit_description]').val(description);
+
+        let path = '';
+        if (image_path == '') {
+            path = {!! json_encode(url('/')) !!} + '/assets/images/sketch.jpg';
+        } else {
+            path = {!! json_encode(url('/')) !!} + '/' + image_path;
+        }
+
+        $('#edit_img').attr('src', path);
+        editClueModal.style.display = "block";
+    }
+
+    function editClueModalClose() {
+        editClueModal.style.display = "none";
+    }
+
+    function editGroupModalClose() {
+        editGroupModal.style.display = "none";
+    }
+
+    function closeDeleteClue(event) {
+        event.preventDefault();
+        deleteClueModal.style.display = 'none';
+    }
+
+    function closeDeleteGroup(event) {
+        event.preventDefault();
+        deleteGroupModal.style.display = 'none';
+    }
+
+    function editClueImg() {
+        event.preventDefault();
+        $('input[name=edit_clue_photo]').click();
+    }
+
+    function deleteClue(clue_id, title) {
+        $('input[name=delete_clue_id]').val(clue_id);
+        $('#delete_clue_title').text(title);
+        deleteClueModal.style.display = 'block';
+    }
+
+    function deleteGroup(group_id, group_name) {
+        $('input[name=delete_group_id]').val(group_id);
+        $('#delete_group_title').text(group_name);
+        deleteGroupModal.style.display = 'block';
+    }
+
+    $('input[name=edit_clue_photo]').on('change', function(event) {
+        let file = event.target.files[0];
+
+        if (file) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                console.log('object');
+                $('#edit_img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
     $(document).ready(function() {
         var addGroupModal = document.getElementById('addGroupModal');
+        var editGroupModal = document.getElementById('editGroupModal');
+        var deleteGroupModal = document.getElementById('deleteGroupModal');
         var addGroupBtn = document.getElementById('addGroupBtn');
         var addGroupClose = document.getElementById('addGroupClose');
+
         var addClueModal = document.getElementById('addClueModal');
+        var editClueModal = document.getElementById('editGroupModal');
+        var deleteClueModal = document.getElementById('deleteClueModal');
         var addClueBtn = document.getElementById('addClueBtn');
         var addClueClose = document.getElementById('addClueClose');
 

@@ -34,10 +34,11 @@
                                             @endif
                                         </td>
                                         <td style="text-align: center"><button class="btn btn-info" style="margin-right:5px"
-                                                id="to-recover" type="">
+                                                id="to-recover"
+                                                onclick="editClue({{ $clue['id'] }},{{ $clue['group']['id'] }}, {{ json_encode($clue['title']) }}, {{ $clue['point'] }},{{ json_encode($clue['description']) }}, {{ json_encode($clue['image_path']) }}) ">
                                                 Edit
                                             </button><button class="btn btn-danger" style="" id="to-recover"
-                                                type="">
+                                                onclick="deleteClue({{ $clue['id'] }}, {{ json_encode($clue['title']) }})">
                                                 Delete
                                             </button></td>
                                     </tr>

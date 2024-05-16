@@ -25,31 +25,34 @@ class AdminController extends Controller {
         return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
     }
 
+    public function authenticate( Request $request ) {
+        $name = $request->input( 'name' );
+        $password = $request->input( 'password' );
+
+        if ( $name !== 'admin' ) {
+            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
+        }
+
+        if ( Auth::attempt( [ 'company_name' => $name, 'password' => $password ] ) ) {
+            return redirect()->route( 'admin.home' )->with( 'msg', 'welcome admin' );
+        } else {
+            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
+        }
+    }
+
+    public function browsePhoto( Request $request ) {
+        $user_id = $request->input( 'user_id' );
+        $group_id = $request->input( 'group_id' );
+        $groups = Group::get()->toArray();
+        $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
+        $photos = Photo::with( 'clue' )->where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
+        return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
+    }
+
     public function showClue() {
         $clues = Clue::with( 'group' )->get()->toArray();
         $groups = Group::get()->toArray();
         return view( 'clue', compact( 'clues', 'groups' ) );
-    }
-
-    public function showGroup() {
-        $groups = Group::get()->toArray();
-        return view( 'group', compact( 'groups' ) );
-    }
-
-    public function addGroup( Request $request ) {
-        $group_name = $request->input( 'group_name' );
-        if ( empty( $group_name ) ) {
-            return back()->with( 'msg', 'input group name' );
-        }
-        $count = Group::where( 'name', $group_name )->count();
-        if ( $count > 0 ) {
-            return redirect()->route( 'admin.showGroup' )->with( 'msg', 'group name already exist' );
-        }
-        $group = new Group();
-        $group->name = $group_name;
-        $group->save();
-
-        return back()->with( 'msg', 'successfully added' );
     }
 
     public function addClue( Request $request ) {
@@ -77,27 +80,67 @@ class AdminController extends Controller {
         return back()->with( 'msg', 'successfully added' );
     }
 
-    public function authenticate( Request $request ) {
-        $name = $request->input( 'name' );
-        $password = $request->input( 'password' );
+    public function editClue( Request $request ) {
+        $edit_id = $request->input( 'edit_clue_id' );
+        $edit_group_id = $request->input( 'edit_group_id' );
+        $edit_title = $request->input( 'edit_title' );
+        $edit_point = $request->input( 'edit_point' );
+        $edit_description = $request->input( 'edit_description' );
 
-        if ( $name !== 'admin' ) {
-            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
-        }
-
-        if ( Auth::attempt( [ 'company_name' => $name, 'password' => $password ] ) ) {
-            return redirect()->route( 'admin.home' )->with( 'msg', 'welcome admin' );
+        if ( !empty( $request->file( 'edit_clue_photo' ) ) ) {
+            $path = Storage::putFileAs(
+                'public/clues', $request->file( 'edit_clue_photo' ), $edit_id.'.jpg'
+            );
+            $path = str_replace( 'public', 'storage', $path );
+            Clue::where( 'id', $edit_id )->update( [ 'group_id' => $edit_group_id, 'title' => $edit_title, 'point' => $edit_point, 'description' => $edit_description, 'image_path' => $path ] );
         } else {
-            return redirect()->route( 'admin.auth' )->with( 'msg', 'wrong credentials' );
+            Clue::where( 'id', $edit_id )->update( [ 'group_id' => $edit_group_id, 'title' => $edit_title, 'point' => $edit_point, 'description' => $edit_description ] );
         }
+
+        return redirect()->route( 'admin.showClue' )->with( 'msg', 'edited successfully' );
     }
 
-    public function browsePhoto( Request $request ) {
-        $user_id = $request->input( 'user_id' );
-        $group_id = $request->input( 'group_id' );
+    public function deleteClue( Request $request ) {
+        $clue_id = $request->input( 'delete_clue_id' );
+        Clue::where( 'id', $clue_id )->delete();
+
+        return back()->with( 'msg', 'deleted successfully' );
+    }
+
+    public function showGroup() {
         $groups = Group::get()->toArray();
-        $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
-        $photos = Photo::with( 'clue' )->where( 'user_id', $user_id )->where( 'group_id', $group_id )->get()->toArray();
-        return view( 'admin', compact( 'groups', 'users', 'photos', 'user_id', 'group_id' ) );
+        return view( 'group', compact( 'groups' ) );
+    }
+
+    public function addGroup( Request $request ) {
+        $group_name = $request->input( 'group_name' );
+        if ( empty( $group_name ) ) {
+            return back()->with( 'msg', 'input group name' );
+        }
+        $count = Group::where( 'name', $group_name )->count();
+        if ( $count > 0 ) {
+            return redirect()->route( 'admin.showGroup' )->with( 'msg', 'group name already exist' );
+        }
+        $group = new Group();
+        $group->name = $group_name;
+        $group->save();
+
+        return back()->with( 'msg', 'added successfully' );
+    }
+
+    public function editGroup( Request $request ) {
+        $group_name = $request->input( 'edit_group_name' );
+        $group_id = $request->input( 'edit_group_id' );
+
+        Group::where( 'id', $group_id )->update( [ 'name' => $group_name ] );
+
+        return back()->with( 'msg', 'edited successfully' );
+    }
+
+    public function deleteGroup( Request $request ) {
+        $group_id = $request->input( 'delete_group_id' );
+        Group::where( 'id', $group_id )->delete();
+
+        return back()->with( 'msg', 'deleted successfully' );
     }
 }
