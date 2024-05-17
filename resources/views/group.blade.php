@@ -6,13 +6,13 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Groups</h5>
+                    <h5 class="card-title">Locations</h5>
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Group Name</th>
+                                    <th>Name</th>
                                     <th style="text-align: center">Action</th>
                                 </tr>
                             </thead>

@@ -37,5 +37,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/editGroup', [AdminController::class, 'editGroup'])->name('editGroup');
         Route::post('/deleteGroup', [AdminController::class, 'deleteGroup'])->name('deleteGroup');
         Route::post('/browsePhoto', [AdminController::class, 'browsePhoto'])->name('browsePhoto');
+        Route::post('/downloadFolder', [AdminController::class, 'downloadFolder'])->name('downloadFolder');
     });
 });

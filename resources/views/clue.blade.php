@@ -11,9 +11,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Group Name</th>
+                                    <th>Location Name</th>
                                     <th>Title</th>
-                                    <th>Point</th>
+                                    <th>Value</th>
                                     <th>Description</th>
                                     <th>Image</th>
                                     <th style="text-align: center">Action</th>

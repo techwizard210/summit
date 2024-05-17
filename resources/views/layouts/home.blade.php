@@ -88,7 +88,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><span class="dropdown-item" id="addClueBtn">Add Clue</span></li>
-                                    <li><span class="dropdown-item" id="addGroupBtn">Add Group</span></li>
+                                    <li><span class="dropdown-item" id="addGroupBtn">Add Location</span></li>
                                 </ul>
                             </li>
                         @endif
@@ -117,18 +117,35 @@
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
                                     href="/admin/showGroup"><i class="mdi mdi-terrain fs-4"></i><span
-                                        class="hide-menu">Groups</span></a>
+                                        class="hide-menu">Locations</span></a>
                             </li>
                         @endif
-                        <li class="sidebar-item">
-                            <form action="{{ route('downloadFolder') }}" id="downloadFolderForm" method="GET">
-                                @csrf
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
-                                    href="#" onclick="document.getElementById('downloadFolderForm').submit()"><i
-                                        class="mdi mdi-download"></i><span class="hide-menu">Download
-                                        Photos</span></a>
-                            </form>
-                        </li>
+                        @if (Auth::user()->id == 1)
+                            <li class="sidebar-item">
+                                <form action="{{ route('admin.downloadFolder') }}" id="adminDownloadFolder"
+                                    method="POST">
+                                    @csrf
+                                    <input name="download_user_id" type="hidden" value="<?php echo isset($user_id) ? $user_id : ''; ?>" />
+                                    <input name="download_group_id" type="hidden" value="<?php echo isset($group_id) ? $group_id : ''; ?>" />
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                        href="#"
+                                        onclick="document.getElementById('adminDownloadFolder').submit()"><i
+                                            class="mdi mdi-download"></i><span class="hide-menu">Download
+                                            Photos</span></a>
+                                </form>
+                            </li>
+                        @else
+                            <li class="sidebar-item">
+                                <form action="{{ route('downloadFolder') }}" id="downloadFolderForm" method="GET">
+                                    @csrf
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                        href="#"
+                                        onclick="document.getElementById('downloadFolderForm').submit()"><i
+                                            class="mdi mdi-download"></i><span class="hide-menu">Download
+                                            Photos</span></a>
+                                </form>
+                            </li>
+                        @endif
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}"
                                 aria-expanded="false"><i class="mdi mdi-power"></i><span
@@ -157,7 +174,7 @@
             @csrf
             <div class="add-modal-content" style="width: 500px">
                 <div class="add-modal-header">
-                    <span style="font-size: 25px">Fill the details of new group</span>
+                    <span style="font-size: 25px">Fill the details of new Location</span>
                     <span class="add-close" id="addGroupClose">&times;</span>
                 </div>
                 <div class="add-modal-body">
@@ -181,7 +198,7 @@
             <input name="edit_group_id" type="hidden" />
             <div class="add-modal-content" style="width: 500px">
                 <div class="add-modal-header">
-                    <span style="font-size: 25px">Edit the details of group</span>
+                    <span style="font-size: 25px">Edit the details of location</span>
                     <span class="add-close" onclick="editGroupModalClose()">&times;</span>
                 </div>
                 <div class="add-modal-body">
@@ -221,7 +238,7 @@
                     </div>
                     <div class="input-group mt-3">
                     </div>
-                    <span style="font-size:17px">select group name</span>
+                    <span style="font-size:17px">select location name</span>
                     <div class="input-group mt-1" style="flex-wrap: nowrap">
                         <select class="custom-select" name="group_id">
                             @foreach ($groups as $index => $group)
