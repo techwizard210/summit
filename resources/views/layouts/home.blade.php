@@ -185,7 +185,7 @@
                 </div>
                 <div class="add-modal-body">
                     <div class="input-group mt-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Group name"
+                        <input type="text" class="form-control form-control-lg" placeholder="Location name"
                             name="group_name" required />
                     </div>
                 </div>
