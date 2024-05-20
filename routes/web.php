@@ -12,10 +12,12 @@ use App\Http\Middleware\CheckIsAdmin;
 Route::get( '/', [ AuthController::class, 'show' ] )->name( 'login' );
 Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
 Route::post( '/authenticate', [ AuthController::class, 'authenticate' ] )->withoutMiddleware( [ VerifyCsrfToken::class ] )->name( 'authenticate' );
-Route::post( '/register', [ AuthController::class, 'register' ] )->withoutMiddleware( [ VerifyCsrfToken::class ] )->name( 'register' );
+Route::get('/getLocation', [AuthController::class, 'getLocation'])->name('getLocation');
 
 Route::middleware(['auth'])->group( function() {
     Route::get( '/home', [ HomeController::class, 'show' ] )->name( 'home' );
+    Route::post( '/goHome', [ HomeController::class, 'goHome' ] )->name( 'goHome' );
+    Route::get('/showLocations', [HomeController::class, 'showLocations'])->name('showLocations');
     Route::get('/downloadFolder', [HomeController::class, 'downloadFolder'])->name('downloadFolder');
     Route::post('/uploadPhoto', [ HomeController::class, 'uploadPhoto' ])->name('uploadPhoto');
     Route::get( '/getPhotosByUser', [ HomeController::class, 'getPhotosByUser' ] )->name( 'getPhotosByUser' );
@@ -38,5 +40,9 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/deleteGroup', [AdminController::class, 'deleteGroup'])->name('deleteGroup');
         Route::post('/browsePhoto', [AdminController::class, 'browsePhoto'])->name('browsePhoto');
         Route::post('/downloadFolder', [AdminController::class, 'downloadFolder'])->name('downloadFolder');
+        Route::post( '/register', [ AuthController::class, 'register' ] )->name( 'register' );
+        Route::get('/showTeam', [AdminController::class, 'showTeam'])->name('showTeam');
+        Route::post('/showLocation', [AdminController::class, 'showLocation'])->name('showLocation');
+        Route::post('/saveLocation', [AdminController::class, 'saveLocation'])->name('saveLocation');
     });
 });

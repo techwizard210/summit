@@ -13,8 +13,7 @@ use App\Models\Group;
 
 class AuthController extends Controller {
     public function show() {
-        $groups = Group::get()->toArray();
-        return view( 'auth.auth', compact( 'groups' ) );
+        return view( 'auth.auth' );
     }
 
     public function showSignup() {
@@ -24,17 +23,18 @@ class AuthController extends Controller {
     public function authenticate( Request $request ) {
         $company_name = $request->input( 'company_name' );
         $team_number = $request->input( 'team_number' );
-        $group_id = $request->input( 'group_id' );
         $password = $request->input( 'password' );
-        $group_name = Group::where('id', $group_id)->value('name');
 
         if ( Auth::attempt( [ 'company_name' => $company_name, 'team_number' => $team_number, 'password' => $password ] ) ) {
-            Session::put( 'group_id', $group_id );
-            Session::put( 'group_name', $group_name );
-            return redirect()->intended( 'home' )->with( 'msg', 'welcome' );
+            Session::put( 'user_id', User::where( 'company_name', $company_name )->where( 'team_number', $team_number )->value( 'id' ) );
+            return redirect()->route( 'showLocations' );
         } else {
             return redirect()->route( 'login' )->with( 'msg', 'wrong credentials' );
         }
+    }
+
+    public function getLocation( Request $request ) {
+        dd( $request->input( 'company_name' ), $request->input( 'team_number' ) );
     }
 
     public function register ( Request $request ) {
@@ -44,12 +44,12 @@ class AuthController extends Controller {
         $re_password = $request->input( 're_password' );
 
         if ( $password !== $re_password ) {
-            return redirect()->route( 'signup' )->with( 'msg', 'Password mismatched' );
+            return back()->with( 'msg', 'Password mismatched' );
         }
 
         $count = User::where( 'company_name', $company_name )->where( 'team_number', $team_number )->count();
         if ( $count > 0 ) {
-            return redirect()->route( 'signup' )->with( 'msg', 'User already exist' );
+            return back()->with( 'msg', 'User already exist' );
         } else {
             $user = new User;
 
@@ -59,7 +59,7 @@ class AuthController extends Controller {
 
             $user->save();
 
-            return redirect()->route( 'login' )->with( 'msg', 'Registered successully' );
+            return redirect()->route( 'admin.showTeam' )->with( 'msg', 'Registered successully' );
         }
     }
 

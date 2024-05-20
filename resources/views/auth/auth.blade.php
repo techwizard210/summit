@@ -29,18 +29,6 @@
                                 <input type="text" class="form-control form-control-lg" placeholder="Team Number"
                                     name="team_number" required="" />
                             </div>
-                            <div class="input-group mb-3" style="flex-wrap: nowrap">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-info text-white h-100" id="basic-addon2"><i
-                                            class="mdi mdi-terrain fs-4"></i></span>
-                                </div>
-                                <select class="custom-select" name="group_id">
-                                    @foreach ($groups as $index => $group)
-                                        <option value={{ $group['id'] }}>
-                                            {{ $group['name'] }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-info text-white h-100" id="basic-addon2"><i
@@ -60,22 +48,14 @@
                                     </button>
                                 </div>
                             </div>
-                            <a href="/signup"
+                            {{-- <a href="/signup"
                                 style="border-bottom: 1px dashed black; float: right; text-decoration:none;color:black">
                                 To register
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-        // let groups = <?php echo json_encode($groups); ?>;
-        // groups.forEach(element => {
-        //     let elem = "<option value=" + element.id + " data-select2-id=" + element.id + ">" + element.name +
-        //         "</option>";
-        //     $('#group-select').append(elem);
-        // });
-    </script>
 @endsection

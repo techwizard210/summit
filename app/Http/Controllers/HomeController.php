@@ -11,6 +11,7 @@ use File;
 
 use App\Models\Photo;
 use App\Models\Group;
+use App\Models\User;
 use App\Models\Clue;
 
 class HomeController extends Controller {
@@ -28,6 +29,28 @@ class HomeController extends Controller {
             $clues[ $index ][ 'path' ] = $photoUrl;
         }
         return view( 'home', compact( 'clues', 'groups' ) );
+    }
+
+    public function showLocations() {
+        $user_id = Session::get( 'user_id' );
+        $group_id = User::where( 'id', $user_id )->value( 'group_id' );
+        $group_id_arr = explode( ',', $group_id );
+        $groups = array();
+        if ( $group_id != '' ) {
+            foreach ( $group_id_arr as $index => $group_item ) {
+                array_push( $groups, Group::where( 'id', $group_item )->get()->toArray() );
+            }
+        }
+        return view( 'authLocation', compact( 'groups' ) )->with( 'msg', 'select a location' );
+    }
+
+    public function goHome( Request $request ) {
+        $group_id = $request->input( 'group_id' );
+        $group_name = Group::where( 'id', $group_id )->value( 'name' );
+        Session::put( 'group_id', $group_id );
+        Session::put( 'group_name', $group_name );
+
+        return redirect()->route( 'home' )->with( 'msg', 'logged in successfully' );
     }
 
     public function uploadPhoto( Request $request ) {
@@ -64,7 +87,7 @@ class HomeController extends Controller {
         $company_name = Auth::user()->toArray()[ 'company_name' ];
         $team_number = Auth::user()->toArray()[ 'team_number' ];
         $group_id = Session::get( 'group_id' );
-        $group_name = Group::where('id', $group_id)->value('name');
+        $group_name = Group::where( 'id', $group_id )->value( 'name' );
 
         $zipFileName = $company_name.'_'.$team_number.'_'.$group_name . '.zip';
         $zipFilePath = storage_path( 'app/public/' . $zipFileName );

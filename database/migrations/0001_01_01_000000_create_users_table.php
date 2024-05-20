@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('company_name');
             $table->integer('team_number');
+            $table->string('group_id')->default('');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

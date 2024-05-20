@@ -150,6 +150,24 @@ class AdminController extends Controller {
         return back()->with( 'msg', 'deleted successfully' );
     }
 
+    public function showTeam( Request $request ) {
+        $users = User::where( 'company_name', '!=', 'admin' )->get()->toArray();
+        foreach ( $users as $key => $user ) {
+            $location_name_arr = array();
+            $location_id_arr = explode( ',', User::where( 'id', $user[ 'id' ] )->value( 'group_id' ) );
+            foreach ( $location_id_arr as $index => $location_id ) {
+                array_push( $location_name_arr, Group::where( 'id', ( int )$location_id )->value( 'name' ) );
+            }
+            $users[ $key ][ 'location_name' ] = implode( ', ', $location_name_arr );
+        }
+        $user_id = 2;
+        $group_id = 1;
+        $clues = Clue::with( 'group' )->get()->toArray();
+        $groups = Group::get()->toArray();
+
+        return vieW( 'team', compact( 'users', 'user_id', 'group_id', 'clues', 'groups' ) );
+    }
+
     public function downloadFolder( Request $request ) {
         $user_id = $request->input( 'download_user_id' );
         $group_id = $request->input( 'download_group_id' );
@@ -180,5 +198,44 @@ class AdminController extends Controller {
 
             return response()->download( $zipFilePath )->deleteFileAfterSend( true );
         }
+    }
+
+    public function showLocation( Request $request ) {
+        $user_id = 2;
+        $group_id = 1;
+        $groups = Group::get()->toArray();
+        $user = User::where( 'id', $request->input( 'location_id' ) )->get()->toArray()[ 0 ];
+        $location_id = User::where( 'id', $request->input( 'location_id' ) )->value( 'group_id' );
+        $location_id_arr = explode( ',', $location_id );
+        $sorted_groups = Group::get()->toArray();
+        foreach ( $sorted_groups as $i => $sorted_group ) {
+            $count = 0;
+            foreach ( $location_id_arr as $j => $location_id ) {
+                if ( $sorted_group[ 'id' ] == ( int ) $location_id ) {
+                    $count += 1;
+                }
+            }
+            if ( $count > 0 ) {
+                $sorted_groups[ $i ][ 'checked' ] = true;
+            } else {
+                $sorted_groups[ $i ][ 'checked' ] = false;
+            }
+        }
+
+        return view( 'location', compact( 'user_id', 'group_id', 'user', 'groups', 'sorted_groups' ) );
+    }
+
+    public function saveLocation( Request $request ) {
+        $check = $request->input( 'checkArr' );
+        $checkArr = explode( ',', $check );
+        $currentUserId = $request->input( 'currentUserId' );
+        $group_id = array();
+        foreach ( $checkArr as $index => $checkItem ) {
+            if ( $checkItem == 'true' ) {
+                array_push( $group_id, $index + 1 );
+            }
+        }
+        User::where( 'id', $currentUserId )->update( [ 'group_id' => implode( ',', $group_id ) ] );
+        return redirect()->route( 'admin.showTeam' )->with( 'msg', 'locations edited successfully' );
     }
 }

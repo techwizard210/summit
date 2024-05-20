@@ -87,6 +87,7 @@
                                     <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><span class="dropdown-item" id="addUserBtn">Add Team</span></li>
                                     <li><span class="dropdown-item" id="addClueBtn">Add Clue</span></li>
                                     <li><span class="dropdown-item" id="addGroupBtn">Add Location</span></li>
                                 </ul>
@@ -109,6 +110,11 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-5">
                         @if (Auth::user()->id == 1)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
+                                    href="/admin/showTeam"><i class="mdi mdi-account-multiple"></i><span
+                                        class="hide-menu">Teams</span></a>
+                            </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
                                     href="/admin/showClue"><i class="mdi mdi-buffer"></i><span
@@ -203,7 +209,7 @@
                 </div>
                 <div class="add-modal-body">
                     <div class="input-group mt-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Group name"
+                        <input type="text" class="form-control form-control-lg" placeholder="Location name"
                             name="edit_group_name" required />
                     </div>
                 </div>
@@ -289,7 +295,7 @@
                     </div>
                     <div class="input-group mt-3">
                     </div>
-                    <span style="font-size:17px">select group name</span>
+                    <span style="font-size:17px">select location name</span>
                     <div class="input-group mt-1" style="flex-wrap: nowrap">
                         <select class="custom-select" name="edit_group_id">
                             @foreach ($groups as $index => $group)
@@ -358,6 +364,41 @@
             </div>
         </form>
     </div>
+
+    <div id="addUserModal" class="add-modal">
+        <form action="{{ route('admin.register') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="add-modal-content" style="width: 500px">
+                <div class="add-modal-header">
+                    <span style="font-size: 25px">Fill the details of new team</span>
+                    <span class="add-close" onclick="closeAddUserModal()">&times;</span>
+                </div>
+                <div class="add-modal-body">
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Company Name"
+                            name="company_name" required />
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="Team Number"
+                            name="team_number" required />
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password"
+                            name="password" required="" />
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="password" class="form-control form-control-lg"
+                            placeholder="Password Confirmation" name="re_password" required="" />
+                    </div>
+                </div>
+                <div class="add-modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 <script>
     let msg = <?php echo json_encode(session('msg')); ?>;
@@ -417,6 +458,10 @@
         deleteGroupModal.style.display = 'none';
     }
 
+    function closeAddUserModal() {
+        addUserModal.style.display = 'none';
+    }
+
     function editClueImg() {
         event.preventDefault();
         $('input[name=edit_clue_photo]').click();
@@ -461,6 +506,9 @@
         var addClueBtn = document.getElementById('addClueBtn');
         var addClueClose = document.getElementById('addClueClose');
 
+        var addUserModal = document.getElementById('addUserModal');
+        var addUserBtn = document.getElementById('addUserBtn');
+
         addGroupBtn.onclick = function() {
             addGroupModal.style.display = "block";
         }
@@ -475,6 +523,10 @@
 
         addClueClose.onclick = function() {
             addClueModal.style.display = "none";
+        }
+
+        addUserBtn.onclick = function() {
+            addUserModal.style.display = "block";
         }
 
         window.onclick = function(event) {
